@@ -1,0 +1,58 @@
+{% extends "agency/base.html" %}
+{% load static %}
+
+
+{% block content_area %}
+
+{% block content_title %}
+<section class="hero is-small is-link">
+  <div class="hero-body">
+    <p class="title">Search Results</p>
+    <p class="subtitle">you searched for "{{ query }}"</p>
+  </div>
+</section>
+{% endblock content_title %}
+
+{% block content %}
+{% for key, rows in object_list.items %}
+<h2 class="">{{ key }}</h2>
+<div class="fixed-grid has-auto-count">
+    <div class="grid">
+        {% for object in rows %}
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-4by3">
+                <img
+                    src="{{ MEDIA_URL }}{{ object.feature_image }}"
+                    alt="Placeholder image"
+                />
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                <div class="media-left">
+                    <figure class="image is-48x48">
+                    <img
+                        src="{{ MEDIA_URL }}{{ object.thumbnail }}"
+                        alt="Placeholder image"
+                    />
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <p class="title is-4"><a href="{{ object.get_absolute_url }}">{{ object }}</a></p>
+                    <p class="subtitle is-6">@johnsmith</p>
+                </div>
+                </div>
+
+                <div class="content">
+                {{ object.description }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}
+
+{% endblock content_area %}

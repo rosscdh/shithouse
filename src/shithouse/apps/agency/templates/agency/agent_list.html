@@ -1,0 +1,42 @@
+{% extends "agency/base.html" %}
+{% load static %}
+
+
+{% block content_area %}
+
+{% block content_title %}
+<h1 class="is-size-1">Agent List</h1>
+<div class="buttons is-pulled-right">
+  <a class="button is-link is-primary" href="{% url 'agent-create' %}">Add Agent</a>
+</div>
+{% endblock content_title %}
+
+{% block content %}
+
+<div class="list">
+    {% for agent in object_list %}
+    <div class="list-item box">
+        <div class="list-item-image">
+          <figure class="image is-64x64">
+            <img class="is-rounded" src="{% static agent.image %}">
+          </figure>
+        </div>
+    
+        <div class="list-item-content">
+          <div class="list-item-title"><a href="{% url  'agent-detail'  pk=agent.pk %}">{{ agent.name }}</a></div>
+          <div class="list-item-description">{{ agency.description }}</div>
+          <div class="list-item-description">
+            {% for branch in agent.branches.all %}
+            <span class="tag is-primary"><a href="{% url 'branch-detail' agency_pk=agent.pk pk=branch.pk %}">{{ branch }}</a></span>
+            {% endfor %}
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+{% endblock content %}
+
+{% endblock content_area %}

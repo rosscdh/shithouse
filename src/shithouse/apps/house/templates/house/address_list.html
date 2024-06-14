@@ -1,0 +1,41 @@
+{% extends "agency/base.html" %}
+{% load static %}
+
+
+{% block content_area %}
+
+{% block content_title %}
+<h1 class="is-size-1">Houses</h1>
+<div class="buttons is-pulled-right">
+  <a class="button is-link is-primary" href="{% url 'house-create' %}">Add Address</a>
+</div>
+{% endblock content_title %}
+
+{% block content %}
+
+<div class="list">
+    {% for house in object_list %}
+    <div class="list-item box">
+        <div class="list-item-image">
+          <figure class="image is-64x64">
+            <img class="is-rounded" src="{{ MEDIA_URL }}{{ house.thumbnail }}">
+          </figure>
+        </div>
+    
+        <div class="list-item-content">
+          <div class="list-item-title"><a href="{% url 'house-detail' pk=house.pk %}">{{ house.address }}</a></div>
+          <div class="list-item-description">{{ house.description }}</div>
+          <div class="list-item-description">
+            {% for agent in house.agents.all %}
+            <span class="tag is-info"><a href="{% url 'agent-detail' pk=agent.pk %}">{{ agent }}</a></span>
+            {% endfor %}
+          </div>
+          
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+
+{% endblock content %}
+
+{% endblock content_area %}

@@ -1,0 +1,14 @@
+django
+django-rest-framework
+django-debug-toolbar
+django-extensions
+werkzeug
+django-address
+django-crispy-forms
+crispy-bulma
+django-bulma
+django-comments-dab
+django-s3-storage
+django-imagekit
+meilisearch
+boto3>=1.34.126

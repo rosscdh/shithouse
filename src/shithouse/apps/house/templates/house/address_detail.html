@@ -1,0 +1,73 @@
+{% extends "agency/base.html" %}
+{% load static comment_tags imagekit %}
+
+
+{% block content_area %}
+
+{% block content_title %}
+<section class="hero is-medium is-link">
+  <div class="hero-body">
+    <p class="title">{{ object.address }}</p>
+    <p class="subtitle">Medium subtitle</p>
+  </div>
+</section>
+{% endblock content_title %}
+
+{% block content %}
+<section class="">
+  <div class="box">
+    {% for image in object.non_feature_images %}
+    <div class="media-left is-pulled-left">
+      <figure class="image is-128x128">
+        <img src="{{ MEDIA_URL }}{{ image.thumbnail }}" />
+      </figure>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+<section>
+<div class="box">
+  <article class="media">
+    <div class="media-content">
+      <div class="content">
+        {{ object.description }}
+      </div>
+      {% for agent in object.agents.all %}
+      <span class="tag is-primary"><a href="{% url 'agent-detail' pk=agent.pk %}">{{ agent }} {{ agent.branches.all.first}}</a></span>
+      {% endfor %}
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <a class="level-item" aria-label="reply">
+            <span class="icon is-small">
+              <i class="fas fa-reply" aria-hidden="true"></i>
+            </span>
+          </a>
+          <a class="level-item" aria-label="retweet">
+            <span class="icon is-small">
+              <i class="fas fa-retweet" aria-hidden="true"></i>
+            </span>
+          </a>
+          <a class="level-item" aria-label="like">
+            <span class="icon is-small">
+              <i class="fas fa-heart" aria-hidden="true"></i>
+            </span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </article>
+</div>
+</section>
+<div class="box">
+{% render_comments object request %}
+</div>
+
+<style>
+  .hero {
+    background-image: url({{ MEDIA_URL }}{{ object.feature_image }});
+    background-size: cover;
+  }
+</style>
+{% endblock content %}
+
+{% endblock content_area %}

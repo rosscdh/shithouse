@@ -1,0 +1,25 @@
+{% extends "agency/base.html" %}
+{% load static crispy_forms_tags %}
+
+
+{% block content_area %}
+
+{% block content_title %}
+<section class="hero is-small is-link">
+  <div class="hero-body">
+    <p class="title">Add an Agent</p>
+    <p class="subtitle">Create a new Agent</p>
+  </div>
+</section>
+{% endblock content_title %}
+
+{% block content %}
+
+<div class="box">
+    {% crispy form form.helper %}
+</div>
+
+
+{% endblock content %}
+
+{% endblock content_area %}

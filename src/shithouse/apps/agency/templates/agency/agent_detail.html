@@ -1,0 +1,56 @@
+{% extends "agency/base.html" %}
+{% load static comment_tags %}
+
+
+{% block content_area %}
+
+{% block content_title %}
+<section class="hero is-small is-link">
+    <div class="hero-body">
+      <p class="title">{{ object.name }}</p>
+      <p class="subtitle">
+        {% for branch in object.branches.all %}
+        <span class="tag is-primary is-light"><a href="{% url 'branch-detail' agency_pk=branch.agency.pk pk=branch.pk %}">{{ branch.agency }}</a></span>
+        {% endfor %}
+      </p>
+    </div>
+</section>
+{% endblock content_title %}
+
+{% block content %}
+
+
+<div class="box">
+    <div class="list-item-image">
+        <figure class="image is-128x128">
+        <img class="is-rounded" src="{% static object.image %}">
+        </figure>
+    </div>
+
+    <div class="list-item-content">
+        <div class="list-item-title">{{ object.name }}</div>
+        <div class="list-item-description">{{ object.description }}</div>
+        <div class="list-item-description">
+            <h3 class="is-size-3">Branches</h3>
+            {% for branch in object.branches.all %}
+            <span class="tag is-primary"><a href="{% url 'branch-detail' agency_pk=branch.agency.pk pk=branch.pk %}">{{ branch }}</a></span>
+            {% endfor %}
+        </div>
+
+        <div class="list-item-description">
+            <h3 class="is-size-3">Addresses</h3>
+            {% for house in object.address_set.all %}
+            <span class="tag is-link is-light"><a href="{% url 'house-detail' pk=house.pk %}">{{ house }}</a></span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<div class="box">
+    {% render_comments object request %}
+</div>
+    
+{% endblock content %}
+
+{% endblock content_area %}

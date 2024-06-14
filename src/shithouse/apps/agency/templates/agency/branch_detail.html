@@ -1,0 +1,42 @@
+{% extends "agency/base.html" %}
+{% load static %}
+
+
+{% block content_area %}
+
+{% block content_title %}
+<section class="hero is-small is-info">
+    <div class="hero-body">
+      <p class="title"><a href="{% url 'agency-detail' pk=object.agency.pk %}">{{ object.agency.name }}</a></p>
+      <p class="subtitle">
+        {{ object.address }}
+      </p>
+    </div>
+</section>
+{% endblock content_title %}
+
+{% block content %}
+
+<div class="box">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-128x128">
+          <img src="{{ MEDIA_URL }}{{ object.agency.feature_image }}" alt="Image" />
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            {{ object.description }}
+          </p>
+        </div>
+        {% for agent in object.agent_set.all %}
+        <span class="tag is-primary"><a href="{% url 'agent-detail' pk=agent.pk %}">{{ agent }}</a></span>
+        {% endfor %}
+      </div>
+    </article>
+  </div>
+
+{% endblock content %}
+
+{% endblock content_area %}
